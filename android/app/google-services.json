@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "568841915665",
+    "project_id": "chat-mini-curso",
+    "storage_bucket": "chat-mini-curso.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568841915665:android:4dfbbc016c838c47c510b0",
+        "android_client_info": {
+          "package_name": "com.example.chat_app_mini_curso"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWnB_F9SjLUqxoz4o6dvuIbtQgfMmgnSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
