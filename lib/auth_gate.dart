@@ -13,6 +13,7 @@ class AuthGate extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: auth.authStateChanges(),
       builder: (context, snapshot) {
+        debugPrint('Auth State Changed');
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(body: Center(child: CircularProgressIndicator()));
         }
