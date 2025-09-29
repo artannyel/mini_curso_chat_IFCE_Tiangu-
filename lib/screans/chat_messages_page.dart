@@ -21,6 +21,14 @@ class ChatMessagesPage extends StatefulWidget {
 
 class _ChatMessagesPageState extends State<ChatMessagesPage> {
   final controller = ChatMessagesController();
+  final _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    controller.messageTextController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +52,13 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                   return Text('Erro: ${snapshot.error}');
                 }
 
+                if (snapshot.hasData) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    if (_scrollController.hasClients) {
+                      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                    }
+                  });
+                }
                 return Column(
                   children: [
                     Expanded(
@@ -51,6 +66,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                           ? Center(child: Text('Nenhuma mensagem encontrada'))
                           : ListView.builder(
                               itemCount: snapshot.data!.docs.length,
+                              controller: _scrollController,
                               itemBuilder: (context, index) {
                                 final doc = snapshot.data!.docs[index];
                                 final data = doc.data();
@@ -69,8 +85,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                             ),
                     ),
                     SizedBox(
-                      child: Row(
-                        spacing: 8,
+                      child: Row(                        
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Expanded(
@@ -93,6 +108,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                               textCapitalization: TextCapitalization.sentences,
                             ),
                           ),
+                          SizedBox(width: 8),
                           IconButton.filled(
                             onPressed: () {
                               controller.sendMessage(
